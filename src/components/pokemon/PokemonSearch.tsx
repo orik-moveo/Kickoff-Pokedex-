@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { SearchContainer, SearchInput } from './PokemonSearchStyle';
+import { SearchContainer, SearchWrapper, SearchInput, SearchButton } from './PokemonSearchStyle';
 
 interface PokemonSearchProps {
   onSearchChange: (searchTerm: string) => void;
@@ -14,14 +14,29 @@ export const PokemonSearch = ({ onSearchChange }: PokemonSearchProps) => {
     onSearchChange(value);
   };
 
+  const handleSearch = () => {
+    onSearchChange(searchTerm);
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  };
+
   return (
     <SearchContainer>
-      <SearchInput
-        type="text"
-        placeholder="Search by name or number..."
-        value={searchTerm}
-        onChange={handleChange}
-      />
+      <SearchWrapper>
+        <SearchInput
+          type="text"
+          value={searchTerm}
+          onChange={handleChange}
+          onKeyPress={handleKeyPress}
+        />
+        <SearchButton onClick={handleSearch} aria-label="Search">
+          Search
+        </SearchButton>
+      </SearchWrapper>
     </SearchContainer>
   );
 };

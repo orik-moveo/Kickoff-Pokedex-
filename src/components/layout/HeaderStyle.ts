@@ -35,8 +35,6 @@ export const NavLinks = styled.div`
 `;
 
 export const NavLink = styled(Link)<{ $isActive: boolean }>`
-  color: #020166;
-  background-color: #020166;
   text-decoration: none;
   font-weight: ${({ theme }) => theme.typography.fontWeight.medium};
   font-size: ${({ theme }) => theme.typography.fontSize.lg};
@@ -58,6 +56,7 @@ export const NavLink = styled(Link)<{ $isActive: boolean }>`
     padding: ${({ theme }) => theme.spacing.xs} ${({ theme }) => theme.spacing.sm};
   }
 `;
+
 
 export const LogoContainer = styled.div`
   display: flex;

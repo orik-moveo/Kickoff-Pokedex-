@@ -1,31 +1,66 @@
 import styled from 'styled-components';
 
 export const SearchContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-bottom: ${({ theme }) => theme.spacing.lg};
 `;
 
-export const SearchInput = styled.input`
+export const SearchWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing.sm};
+  max-width: 500px;
   width: 100%;
-  max-width: 400px;
-  padding: ${({ theme }) => theme.spacing.md};
+`;
+
+export const SearchInput = styled.input`
+  flex: 1;
+  padding: ${({ theme }) => theme.spacing.sm} ${({ theme }) => theme.spacing.md};
   font-size: ${({ theme }) => theme.typography.fontSize.md};
-  border: 1px solid ${({ theme }) => theme.colors.border};
+  border: 1px solid #373299;
   border-radius: ${({ theme }) => theme.borderRadius.md};
   background-color: ${({ theme }) => theme.colors.background};
   color: ${({ theme }) => theme.colors.text};
+  height: 100%;
 
   &:focus {
     outline: none;
-    border-color: ${({ theme }) => theme.colors.primary};
-    box-shadow: 0 0 0 3px ${({ theme }) => theme.colors.primary}20;
-  }
-
-  &::placeholder {
-    color: ${({ theme }) => theme.colors.textSecondary};
+    border-color: #373299;
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
-    padding: ${({ theme }) => theme.spacing.sm};
+    padding: ${({ theme }) => theme.spacing.xs} ${({ theme }) => theme.spacing.sm};
     font-size: ${({ theme }) => theme.typography.fontSize.sm};
+  }
+`;
+
+export const SearchButton = styled.button`
+  padding: ${({ theme }) => theme.spacing.sm} ${({ theme }) => theme.spacing.md};
+  background-color: #373299;
+  color: white;
+  border: 1px solid #373299;
+  border-radius: ${({ theme }) => theme.borderRadius.md};
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: ${({ theme }) => theme.typography.fontSize.sm};
+  transition: background-color 0.2s ease;
+  white-space: nowrap;
+  height: 100%;
+
+  &:hover {
+    background-color: #2a2470;
+  }
+
+  &:active {
+    background-color: #373299;
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    padding: ${({ theme }) => theme.spacing.xs} ${({ theme }) => theme.spacing.sm};
+    font-size: ${({ theme }) => theme.typography.fontSize.xs};
   }
 `;
