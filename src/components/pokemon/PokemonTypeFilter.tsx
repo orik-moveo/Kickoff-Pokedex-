@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { getPokemonTypes } from '../../api/pokemonApi';
 import type { TypeListItem } from '../../types/Pokemon';
-import { FilterContainer, FilterLabel, FilterButtons, FilterButton } from './PokemonTypeFilterStyle';
+import { FilterSelect } from './PokemonTypeFilterStyle';
 
 interface PokemonTypeFilterProps {
   onTypeChange: (selectedType: string | null) => void;
@@ -10,7 +10,7 @@ interface PokemonTypeFilterProps {
 export const PokemonTypeFilter = ({ onTypeChange }: PokemonTypeFilterProps) => {
   const [types, setTypes] = useState<TypeListItem[]>([]);
   const [loading, setLoading] = useState(true);
-  const [selectedType, setSelectedType] = useState<string | null>(null);
+  const [selectedType, setSelectedType] = useState<string>('');
 
   useEffect(() => {
     const fetchTypes = async () => {
@@ -31,38 +31,24 @@ export const PokemonTypeFilter = ({ onTypeChange }: PokemonTypeFilterProps) => {
     fetchTypes();
   }, []);
 
-  const handleTypeClick = (typeName: string | null) => {
-    if (selectedType === typeName) {
-      setSelectedType(null);
-      onTypeChange(null);
-    } else {
-      setSelectedType(typeName);
-      onTypeChange(typeName);
-    }
+  const handleTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = e.target.value;
+    setSelectedType(value);
+    onTypeChange(value === '' ? null : value);
   };
 
   if (loading) {
-    return <div>Loading types...</div>;
+    return <FilterSelect disabled><option>Loading types...</option></FilterSelect>;
   }
 
   return (
-    <FilterContainer>
-      <FilterLabel>Filter by Type:</FilterLabel>
-      <FilterButtons>
-        <FilterButton $isActive={selectedType === null} onClick={() => handleTypeClick(null)}>
-          All
-        </FilterButton>
-        {types.map((type) => (
-          <FilterButton
-            key={type.name}
-            $isActive={selectedType === type.name}
-            $typeName={type.name}
-            onClick={() => handleTypeClick(type.name)}
-          >
-            {type.name}
-          </FilterButton>
-        ))}
-      </FilterButtons>
-    </FilterContainer>
+    <FilterSelect value={selectedType} onChange={handleTypeChange}>
+      <option value="">All Types</option>
+      {types.map((type) => (
+        <option key={type.name} value={type.name}>
+          {type.name.charAt(0).toUpperCase() + type.name.slice(1)}
+        </option>
+      ))}
+    </FilterSelect>
   );
 };

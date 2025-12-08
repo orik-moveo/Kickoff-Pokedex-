@@ -2,17 +2,15 @@ import styled from 'styled-components';
 
 export const SearchContainer = styled.div`
   display: flex;
-  justify-content: center;
   align-items: center;
-  margin-bottom: ${({ theme }) => theme.spacing.lg};
 `;
 
 export const SearchWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: ${({ theme }) => theme.spacing.sm};
+  flex: 1;
   max-width: 500px;
-  width: 100%;
 `;
 
 export const SearchInput = styled.input`
