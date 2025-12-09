@@ -2,63 +2,67 @@ import styled from 'styled-components';
 
 export const DetailsContainer = styled.div`
   background-color: ${({ theme }) => theme.colors.background};
-  border-radius: ${({ theme }) => theme.borderRadius.xl};
-  padding: ${({ theme }) => theme.spacing.xl};
-  box-shadow: ${({ theme }) => theme.shadows.lg};
+  border-radius: ${({ theme }) => theme.borderRadius.lg};
+  padding: ${({ theme }) => theme.spacing.md};
+  box-shadow: ${({ theme }) => theme.shadows.md};
+  width: 450px;
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+  position: relative;
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
-    padding: ${({ theme }) => theme.spacing.md};
-    border-radius: ${({ theme }) => theme.borderRadius.lg};
+  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+    width: 100%;
+    max-width: 450px;
+    margin: 0 auto;
   }
 `;
 
-export const HeaderSection = styled.div`
+export const ContentWrapper = styled.div`
   display: flex;
-  justify-content: space-between;
+  gap: ${({ theme }) => theme.spacing.md};
   align-items: flex-start;
-  margin-bottom: ${({ theme }) => theme.spacing.xl};
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
-    margin-bottom: ${({ theme }) => theme.spacing.lg};
-  }
 `;
 
-export const TitleSection = styled.div`
+export const LeftSection = styled.div`
+  flex: 0 0 auto;
+`;
+
+export const RightSection = styled.div`
   flex: 1;
-`;
-
-export const PokemonName = styled.h1`
-  margin: 0 0 ${({ theme }) => theme.spacing.xs} 0;
-  font-size: ${({ theme }) => theme.typography.fontSize.xxxl};
-  font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
-  color: ${({ theme }) => theme.colors.text};
-  text-transform: capitalize;
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
-    font-size: ${({ theme }) => theme.typography.fontSize.xxl};
-  }
+  display: flex;
+  flex-direction: column;
 `;
 
 export const PokemonId = styled.p`
+  position: absolute;
+  top: ${({ theme }) => theme.spacing.sm};
+  left: ${({ theme }) => theme.spacing.sm};
   margin: 0;
-  font-size: ${({ theme }) => theme.typography.fontSize.lg};
-  color: ${({ theme }) => theme.colors.textSecondary};
+  font-size: ${({ theme }) => theme.typography.fontSize.md};
+  font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
+  font-family: 'Roboto', sans-serif;
+  color: #373299;
+  z-index: 1;
 `;
 
 export const HeartButton = styled.button<{ $isFavorite: boolean }>`
+  position: absolute;
+  top: ${({ theme }) => theme.spacing.sm};
+  right: ${({ theme }) => theme.spacing.sm};
   background: none;
   border: none;
   cursor: pointer;
-  padding: ${({ theme }) => theme.spacing.md};
+  padding: ${({ theme }) => theme.spacing.xs};
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 32px;
-  color: ${({ theme, $isFavorite }) =>
-    $isFavorite ? '#E91E63' : theme.colors.textSecondary};
+  font-size: ${({ $isFavorite }) => ($isFavorite ? '24px' : '20px')};
+  font-weight: bold;
+  color: #020166;
   transition: transform 0.2s ease;
-  min-width: 44px; /* Touch-friendly size */
-  min-height: 44px;
+  z-index: 1;
+  line-height: 1;
+  font-family: 'Roboto', sans-serif;
 
   @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
     &:hover {
@@ -71,41 +75,30 @@ export const HeartButton = styled.button<{ $isFavorite: boolean }>`
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
-    font-size: 24px;
-    padding: ${({ theme }) => theme.spacing.sm};
-  }
-`;
-
-export const ImageSection = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: ${({ theme }) => theme.colors.backgroundSecondary};
-  border-radius: ${({ theme }) => theme.borderRadius.lg};
-  padding: ${({ theme }) => theme.spacing.xl};
-  margin-bottom: ${({ theme }) => theme.spacing.xl};
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
-    padding: ${({ theme }) => theme.spacing.md};
-    margin-bottom: ${({ theme }) => theme.spacing.lg};
+    font-size: ${({ $isFavorite }) => ($isFavorite ? '20px' : '18px')};
   }
 `;
 
 export const PokemonImage = styled.img`
-  width: 300px;
-  height: 300px;
+  width: 120px;
+  height: 120px;
   object-fit: contain;
+  margin-top: ${({ theme }) => theme.spacing.md};
+`;
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
-    width: 200px;
-    height: 200px;
-  }
+export const PokemonName = styled.h2`
+  margin: ${({ theme }) => theme.spacing.sm} 0 0 0;
+  font-size: ${({ theme }) => theme.typography.fontSize.md};
+  font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
+  font-family: 'Roboto', sans-serif;
+  color: #373299;
+  text-transform: capitalize;
 `;
 
 export const TypesContainer = styled.div`
   display: flex;
-  gap: ${({ theme }) => theme.spacing.sm};
-  margin-bottom: ${({ theme }) => theme.spacing.xl};
+  gap: ${({ theme }) => theme.spacing.xs};
+  margin-top: ${({ theme }) => theme.spacing.xs};
   flex-wrap: wrap;
 `;
 
@@ -113,55 +106,55 @@ export const TypeBadge = styled.span<{ $typeName: string }>`
   background-color: ${({ theme, $typeName }) =>
     theme.colors.type[$typeName as keyof typeof theme.colors.type] || theme.colors.type.normal};
   color: white;
-  padding: ${({ theme }) => theme.spacing.sm} ${({ theme }) => theme.spacing.md};
+  padding: ${({ theme }) => theme.spacing.xs} ${({ theme }) => theme.spacing.sm};
   border-radius: ${({ theme }) => theme.borderRadius.full};
-  font-size: ${({ theme }) => theme.typography.fontSize.md};
+  font-size: ${({ theme }) => theme.typography.fontSize.xs};
   font-weight: ${({ theme }) => theme.typography.fontWeight.medium};
   text-transform: capitalize;
+`;
+
+export const DescriptionTitle = styled.h3`
+  margin: 0 0 ${({ theme }) => theme.spacing.xs} 0;
+  font-size: ${({ theme }) => theme.typography.fontSize.sm};
+  font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
+  font-family: 'Roboto', sans-serif;
+  color: #373299;
 `;
 
 export const Description = styled.p`
-  font-size: ${({ theme }) => theme.typography.fontSize.md};
-  line-height: ${({ theme }) => theme.typography.lineHeight.relaxed};
-  color: ${({ theme }) => theme.colors.text};
-  margin-bottom: ${({ theme }) => theme.spacing.xl};
+  margin: 0 0 ${({ theme }) => theme.spacing.md} 0;
+  font-size: ${({ theme }) => theme.typography.fontSize.xs};
+  line-height: ${({ theme }) => theme.typography.lineHeight.normal};
+  font-family: 'Roboto', sans-serif;
+  color: #373299;
 `;
 
 export const StatsSection = styled.div`
-  margin-top: ${({ theme }) => theme.spacing.xl};
+  margin-top: ${({ theme }) => theme.spacing.sm};
 `;
 
-export const StatsTitle = styled.h2`
-  margin: 0 0 ${({ theme }) => theme.spacing.lg} 0;
-  font-size: ${({ theme }) => theme.typography.fontSize.xl};
-  font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
-  color: ${({ theme }) => theme.colors.text};
-`;
-
-export const StatItem = styled.div`
-  margin-bottom: ${({ theme }) => theme.spacing.md};
-`;
-
-export const StatLabel = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: ${({ theme }) => theme.spacing.xs};
+export const StatsTitle = styled.h3`
+  margin: 0 0 ${({ theme }) => theme.spacing.xs} 0;
   font-size: ${({ theme }) => theme.typography.fontSize.sm};
-  font-weight: ${({ theme }) => theme.typography.fontWeight.medium};
-  color: ${({ theme }) => theme.colors.text};
-  text-transform: capitalize;
+  font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
+  font-family: 'Roboto', sans-serif;
+  color: #373299;
 `;
 
-export const StatBarContainer = styled.div`
-  height: 8px;
-  background-color: ${({ theme }) => theme.colors.backgroundSecondary};
-  border-radius: ${({ theme }) => theme.borderRadius.full};
-  overflow: hidden;
+export const StatsGrid = styled.div`
+  display: grid;
+  grid-template-columns: auto 1fr auto 1fr auto 1fr;
+  gap: ${({ theme }) => theme.spacing.xs};
+  font-size: ${({ theme }) => theme.typography.fontSize.xs};
+  font-family: 'Roboto', sans-serif;
+  color: #373299;
+  row-gap: ${({ theme }) => theme.spacing.xs};
 `;
 
-export const StatBar = styled.div<{ $value: number }>`
-  height: 100%;
-  background-color: ${({ theme }) => theme.colors.primary};
-  width: ${({ $value }) => Math.min(($value / 255) * 100, 100)}%;
-  transition: width 0.3s ease;
+export const StatCell = styled.div`
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  font-family: 'Roboto', sans-serif;
+  color: #373299;
 `;

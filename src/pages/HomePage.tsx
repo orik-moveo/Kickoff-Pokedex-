@@ -66,7 +66,7 @@ export const HomePage = () => {
       {showLoadMore && (
         <LoadMoreContainer>
           <LoadMoreButton onClick={loadMore} disabled={loadingMore}>
-            {loadingMore ? 'Loading...' : 'Load More Pokémon'}
+            load more...
           </LoadMoreButton>
         </LoadMoreContainer>
       )}

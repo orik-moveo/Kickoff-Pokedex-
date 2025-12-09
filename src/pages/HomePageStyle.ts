@@ -52,23 +52,20 @@ export const LoadMoreContainer = styled.div`
 `;
 
 export const LoadMoreButton = styled.button`
-  padding: ${({ theme }) => theme.spacing.md} ${({ theme }) => theme.spacing.xl};
-  background-color: ${({ theme }) => theme.colors.primary};
-  color: white;
-  border: none;
+  padding: ${({ theme }) => theme.spacing.sm} ${({ theme }) => theme.spacing.md};
+  background-color: ${({ theme }) => theme.colors.background};
+  color: ${({ theme }) => theme.colors.text};
+  border: 1px solid #373299;
   border-radius: ${({ theme }) => theme.borderRadius.md};
   font-size: ${({ theme }) => theme.typography.fontSize.md};
-  font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
+  font-weight: ${({ theme }) => theme.typography.fontWeight.medium};
   cursor: pointer;
   transition: all 0.2s ease;
   min-height: 44px; /* Touch-friendly size */
 
-  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
-    &:hover:not(:disabled) {
-      background-color: ${({ theme }) => theme.colors.primary}dd;
-      transform: translateY(-2px);
-      box-shadow: ${({ theme }) => theme.shadows.md};
-    }
+  &:focus {
+    outline: none;
+    border-color: #373299;
   }
 
   &:disabled {
@@ -76,14 +73,8 @@ export const LoadMoreButton = styled.button`
     cursor: not-allowed;
   }
 
-  &:active:not(:disabled) {
-    transform: translateY(0);
-  }
-
   @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
-    padding: ${({ theme }) => theme.spacing.sm} ${({ theme }) => theme.spacing.lg};
+    padding: ${({ theme }) => theme.spacing.xs} ${({ theme }) => theme.spacing.sm};
     font-size: ${({ theme }) => theme.typography.fontSize.sm};
-    width: 100%;
-    max-width: 300px;
   }
 `;

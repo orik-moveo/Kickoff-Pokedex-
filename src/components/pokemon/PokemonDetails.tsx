@@ -2,22 +2,21 @@ import { useFavoritesContext } from '../../context/FavoritesContext';
 import type { Pokemon } from '../../types/Pokemon';
 import {
   DetailsContainer,
-  HeaderSection,
-  TitleSection,
-  PokemonName,
+  ContentWrapper,
+  LeftSection,
+  RightSection,
   PokemonId,
   HeartButton,
-  ImageSection,
   PokemonImage,
+  PokemonName,
   TypesContainer,
   TypeBadge,
+  DescriptionTitle,
   Description,
   StatsSection,
   StatsTitle,
-  StatItem,
-  StatLabel,
-  StatBarContainer,
-  StatBar,
+  StatsGrid,
+  StatCell,
 } from './PokemonDetailsStyle';
 
 interface PokemonDetailsProps {
@@ -36,50 +35,74 @@ export const PokemonDetails = ({ pokemon, description }: PokemonDetailsProps) =>
   const imageUrl =
     pokemon.sprites.other['official-artwork'].front_default || pokemon.sprites.front_default;
 
+  // Organize stats according to the requested format
+  const hp = pokemon.stats.find((s) => s.stat.name === 'hp');
+  const attack = pokemon.stats.find((s) => s.stat.name === 'attack');
+  const defense = pokemon.stats.find((s) => s.stat.name === 'defense');
+  const specialAttack = pokemon.stats.find((s) => s.stat.name === 'special-attack');
+  const specialDefense = pokemon.stats.find((s) => s.stat.name === 'special-defense');
+  const speed = pokemon.stats.find((s) => s.stat.name === 'speed');
+  const total = pokemon.stats.reduce((sum, stat) => sum + stat.base_stat, 0);
+
   return (
     <DetailsContainer>
-      <HeaderSection>
-        <TitleSection>
+      <PokemonId>#{String(pokemon.id).padStart(3, '0')}</PokemonId>
+      <HeartButton
+        $isFavorite={favorite}
+        onClick={handleHeartClick}
+        aria-label={favorite ? 'Remove from favorites' : 'Add to favorites'}
+      >
+        {favorite ? '✕' : '♡'}
+      </HeartButton>
+
+      <ContentWrapper>
+        <LeftSection>
+          <PokemonImage src={imageUrl} alt={pokemon.name} />
           <PokemonName>{pokemon.name}</PokemonName>
-          <PokemonId>#{String(pokemon.id).padStart(3, '0')}</PokemonId>
-        </TitleSection>
-        <HeartButton
-          $isFavorite={favorite}
-          onClick={handleHeartClick}
-          aria-label={favorite ? 'Remove from favorites' : 'Add to favorites'}
-        >
-          {favorite ? '❤️' : '🤍'}
-        </HeartButton>
-      </HeaderSection>
+          <TypesContainer>
+            {pokemon.types.map((type) => (
+              <TypeBadge key={type.slot} $typeName={type.type.name}>
+                {type.type.name}
+              </TypeBadge>
+            ))}
+          </TypesContainer>
+        </LeftSection>
 
-      <ImageSection>
-        <PokemonImage src={imageUrl} alt={pokemon.name} />
-      </ImageSection>
+        <RightSection>
+          {description && (
+            <>
+              <DescriptionTitle>Description</DescriptionTitle>
+              <Description>{description}</Description>
+            </>
+          )}
 
-      <TypesContainer>
-        {pokemon.types.map((type) => (
-          <TypeBadge key={type.slot} $typeName={type.type.name}>
-            {type.type.name}
-          </TypeBadge>
-        ))}
-      </TypesContainer>
+          <StatsSection>
+            <StatsTitle>Stats:</StatsTitle>
+            <StatsGrid>
+              <StatCell>HP:</StatCell>
+              <StatCell>{hp?.base_stat || 0}</StatCell>
+              <StatCell>Special Atk:</StatCell>
+              <StatCell>{specialAttack?.base_stat || 0}</StatCell>
+              <StatCell>Total:</StatCell>
+              <StatCell>{total}</StatCell>
 
-      {description && <Description>{description}</Description>}
+              <StatCell>Attack:</StatCell>
+              <StatCell>{attack?.base_stat || 0}</StatCell>
+              <StatCell>Special Def:</StatCell>
+              <StatCell>{specialDefense?.base_stat || 0}</StatCell>
+              <StatCell></StatCell>
+              <StatCell></StatCell>
 
-      <StatsSection>
-        <StatsTitle>Stats</StatsTitle>
-        {pokemon.stats.map((stat) => (
-          <StatItem key={stat.stat.name}>
-            <StatLabel>
-              <span>{stat.stat.name.replace('-', ' ')}</span>
-              <span>{stat.base_stat}</span>
-            </StatLabel>
-            <StatBarContainer>
-              <StatBar $value={stat.base_stat} />
-            </StatBarContainer>
-          </StatItem>
-        ))}
-      </StatsSection>
+              <StatCell>Defense:</StatCell>
+              <StatCell>{defense?.base_stat || 0}</StatCell>
+              <StatCell>Speed:</StatCell>
+              <StatCell>{speed?.base_stat || 0}</StatCell>
+              <StatCell></StatCell>
+              <StatCell></StatCell>
+            </StatsGrid>
+          </StatsSection>
+        </RightSection>
+      </ContentWrapper>
     </DetailsContainer>
   );
 };

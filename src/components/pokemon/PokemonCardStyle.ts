@@ -1,23 +1,28 @@
 import styled from 'styled-components';
 
 export const Card = styled.div`
-  background-color: ${({ theme }) => theme.colors.background};
-  border-radius: ${({ theme }) => theme.borderRadius.lg};
-  padding: ${({ theme }) => theme.spacing.md};
-  box-shadow: ${({ theme }) => theme.shadows.md};
+  background-color: #F7F7F9;
+  border-radius: ${({ theme }) => theme.borderRadius.md};
+  padding: 4px;
+  box-shadow: ${({ theme }) => theme.shadows.sm};
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   position: relative;
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
   @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
     &:hover {
-      transform: translateY(-4px);
-      box-shadow: ${({ theme }) => theme.shadows.lg};
+      transform: translateY(-2px);
+      box-shadow: ${({ theme }) => theme.shadows.md};
     }
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
-    padding: ${({ theme }) => theme.spacing.sm};
+    padding: 4px;
   }
 `;
 
@@ -25,10 +30,10 @@ export const ImageContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: ${({ theme }) => theme.colors.backgroundSecondary};
-  border-radius: ${({ theme }) => theme.borderRadius.md};
-  padding: ${({ theme }) => theme.spacing.md};
-  margin-bottom: ${({ theme }) => theme.spacing.md};
+  background-color: transparent;
+  padding: 0;
+  flex: 1;
+  width: 100%;
 `;
 
 export const PokemonImage = styled.img`
@@ -41,23 +46,39 @@ export const PokemonImage = styled.img`
     height: 100px;
   }
 `;
-
 export const CardInfo = styled.div`
   text-align: center;
+  position: absolute;
+  bottom: ${({ theme }) => theme.spacing.xs};
+  width: 100%;
 `;
 
 export const PokemonName = styled.h3`
-  margin: 0 0 ${({ theme }) => theme.spacing.xs} 0;
-  font-size: ${({ theme }) => theme.typography.fontSize.lg};
+  margin: 0;
+  font-size: 11px;
   font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
-  color: ${({ theme }) => theme.colors.text};
+  font-family: 'Roboto', sans-serif;
+  color: #373299;
   text-transform: capitalize;
+  line-height: 1.2;
 `;
 
 export const PokemonId = styled.p`
-  margin: 0 0 ${({ theme }) => theme.spacing.sm} 0;
-  font-size: ${({ theme }) => theme.typography.fontSize.sm};
-  color: ${({ theme }) => theme.colors.textSecondary};
+  position: absolute;
+  top: 2px;
+  left: 4px;
+  margin: 0;
+  font-size: 9px;
+  font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
+  font-family: 'Roboto', sans-serif;
+  color: #373299;
+  z-index: 1;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    font-size: 8px;
+    top: 2px;
+    left: 4px;
+  }
 `;
 
 export const TypesContainer = styled.div`
@@ -109,6 +130,6 @@ export const HeartButton = styled.button<{ $isFavorite: boolean }>`
   @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
     top: ${({ theme }) => theme.spacing.sm};
     right: ${({ theme }) => theme.spacing.sm};
-    font-size: 20px;
   }
 `;
+

@@ -2,6 +2,15 @@ import styled from 'styled-components';
 
 export const PageContainer = styled.div`
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-left: ${({ theme }) => theme.spacing.lg};
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+    align-items: center;
+    padding-left: 0;
+  }
 `;
 
 export const BackButton = styled.button`
