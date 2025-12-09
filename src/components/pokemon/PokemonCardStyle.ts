@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+// Styled components for PokemonCard
 export const Card = styled.div`
   background-color: #F7F7F9;
   border-radius: ${({ theme }) => theme.borderRadius.md};
@@ -46,6 +47,7 @@ export const PokemonImage = styled.img`
     height: 100px;
   }
 `;
+
 export const CardInfo = styled.div`
   text-align: center;
   position: absolute;
@@ -55,7 +57,7 @@ export const CardInfo = styled.div`
 
 export const PokemonName = styled.h3`
   margin: 0;
-  font-size: 11px;
+  font-size: 14px;
   font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
   font-family: 'Roboto', sans-serif;
   color: #373299;
@@ -68,14 +70,14 @@ export const PokemonId = styled.p`
   top: 2px;
   left: 4px;
   margin: 0;
-  font-size: 9px;
+  font-size: 11px;
   font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
   font-family: 'Roboto', sans-serif;
   color: #373299;
   z-index: 1;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
-    font-size: 8px;
+    font-size: 10px;
     top: 2px;
     left: 4px;
   }

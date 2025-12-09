@@ -6,7 +6,6 @@ import { PokemonTypeFilter } from '../components/pokemon/PokemonTypeFilter';
 import type { Pokemon } from '../types/Pokemon';
 import {
   PageContainer,
-  PageTitle,
   FiltersContainer,
   LoadingMessage,
   ErrorMessage,
@@ -57,7 +56,6 @@ export const HomePage = () => {
 
   return (
     <PageContainer>
-      <PageTitle>Pokédex</PageTitle>
       <FiltersContainer>
         <PokemonSearch onSearchChange={setSearchTerm} />
         <PokemonTypeFilter onTypeChange={setSelectedType} />

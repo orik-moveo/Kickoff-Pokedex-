@@ -7,9 +7,9 @@ export const LayoutContainer = styled.div`
 
 export const MainContent = styled.main`
   width: 100%;
-  padding: ${({ theme }) => theme.spacing.lg};
+  padding: ${({ theme }) => theme.spacing.md} 4px;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
-    padding: ${({ theme }) => theme.spacing.md};
+    padding: ${({ theme }) => theme.spacing.sm} 2px;
   }
 `;
